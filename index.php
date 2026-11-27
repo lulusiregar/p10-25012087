@@ -1,8 +1,8 @@
 <?php
 require 'koneksi.php';
  
-$sql = 'SELECT p.id_produk, p.nama_produk, p.harga, p.stok,
-               k.nama_kategori
+$sql = 'SELECT p.id_produk, p.merk, p.nama_produk, p.harga, p.stok,
+            k.nama_kategori
         FROM produk AS p
         INNER JOIN kategori AS k ON k.id_kategori = p.id_kategori
         ORDER BY p.id_produk';
@@ -18,11 +18,13 @@ $hasil = mysqli_query($koneksi, $sql);
 
     <body>
         <h1>Daftar Produk</h1>
+        <p><a href="pelanggan.php">Kelola pelanggan</a></p>
         <p><a href="tambah.php">Tambah produk</a></p>
         <table>
             <tr>
                 <th>Nama</th>
                 <th>Kategori</th>
+                <th>Merk</th>
                 <th>Harga</th>
                 <th>Stok</th>
                 <th>Aksi</th>
@@ -33,6 +35,7 @@ $hasil = mysqli_query($koneksi, $sql);
             <tr>
                 <td><?= e($baris['nama_produk']) ?></td>
                 <td><?= e($baris['nama_kategori']) ?></td>
+                <td><?= e($baris['merk'] ?? '-') ?></td>
                 <td>Rp <?= e(number_format((float) $baris['harga'], 0, ',', '.')) ?></td>
                 <td><?= e($baris['stok']) ?></td>
                 <td>
